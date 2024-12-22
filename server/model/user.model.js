@@ -26,6 +26,23 @@ const userSchema = new mongoose.Schema({
     default:
       "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg",
   },
+  status: {
+    type: String,
+    default: "offline",
+    enum: ["online", "offline"],
+  },
+  lastSeen: {
+    type: Date,
+    default: null,
+  },
+  about: {
+    type: String,
+    default: "Hey there! I am using this app.",
+  },
+  isTyping: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.pre("save", async function (next) {
@@ -35,15 +52,9 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.generateToken = async function () {
   try {
-    return jwt.sign(
-      {
-        id: this._id,
-      },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "30d",
-      }
-    );
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "30d",
+    });
   } catch (error) {
     console.error(error);
     throw new Error("Error generating token");

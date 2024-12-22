@@ -1,4 +1,4 @@
-import User from "../model/UserModel.js";
+import User from "../model/user.model.js";
 import errorHandler from "../utils/errorHandler.js";
 
 export const register = async (req, res, next) => {
@@ -45,7 +45,6 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
 
     const validEmail = await User.findOne({ email });
     if (!validEmail) {

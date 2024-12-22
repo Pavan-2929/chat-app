@@ -8,7 +8,7 @@ const Home = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   return (
-    <div>
+    <div className="">
       <div>
         <p>details</p>
         <p>{currentUser && currentUser.username}</p>

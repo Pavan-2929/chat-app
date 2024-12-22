@@ -1,4 +1,4 @@
-import User from "../model/UserModel.js";
+import User from "../model/user.model.js";
 import errorHandler from "../utils/errorHandler.js";
 import jwt from "jsonwebtoken";
 
@@ -10,10 +10,8 @@ const verifyToken = async (req, res, next) => {
   }
   try {
     const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(isVerified);
 
     const user = await User.findById(isVerified.id).select("-password");
-    console.log(user);
 
     if (user) {
       req.id = user._id;
