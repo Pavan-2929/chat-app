@@ -1,17 +1,24 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import AuthRoutes from "./components/Routes/AuthRoutes";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<div>Welcome to Chat App</div>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<div>Signup</div>} />
-        <Route path="/register" element={<Register />} />
+        <Route element={<AuthRoutes />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<div>Signup</div>} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

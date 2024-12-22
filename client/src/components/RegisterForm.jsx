@@ -17,12 +17,15 @@ import { SERVER_URL } from "@/utils/Constant";
 import { registerShcema } from "../lib/validations";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login, setUser } from "@/redux/auth/authSlice";
 
 const RegisterForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const form = useForm({
     resolver: zodResolver(registerShcema),
@@ -44,6 +47,8 @@ const RegisterForm = () => {
         { withCredentials: true }
       );
       navigate("/");
+      dispatch(login());
+      dispatch(setUser(response.data));
       toast({
         description: "User registered successfully",
       });
