@@ -5,19 +5,17 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: "root",
+  key: "auth",
   storage,
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: persistReducer(persistConfig, authReducer),
   chat: chatReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

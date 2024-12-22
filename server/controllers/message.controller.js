@@ -5,6 +5,7 @@ import errorHandler from "../utils/errorHandler.js";
 export const sendMessage = async (req, res, next) => {
   try {
     const { message } = req.body;
+    console.log(message);
 
     const { receiverId } = req.params;
     const senderId = req.id.toString();
@@ -40,17 +41,16 @@ export const getMessage = async (req, res, next) => {
     const { receiverId } = req.params;
     const senderId = req.id.toString();
 
-    // Find the conversation between the sender and receiver
     const conversation = await Conversation.findOne({
       members: { $all: [senderId, receiverId] },
     }).populate("messages");
 
     if (!conversation) {
-      return next(errorHandler(404, "Conversation not found"));
+      return res.status(201).json([]);
     }
 
-    // Extract messages from the conversation
     const messages = conversation.messages || [];
+    console.log(messages);
 
     res.status(200).json(messages);
   } catch (error) {

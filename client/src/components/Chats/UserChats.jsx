@@ -2,10 +2,11 @@ import { cn } from "@/lib/utils";
 import { SERVER_URL } from "@/utils/Constant";
 import { MessageCircle, SearchIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { Input } from "./ui/input";
-import UserAvatar from "./UserAvatar";
+import { Input } from "../ui/input";
+import UserAvatar from "../UserAvatar";
 import axios from "axios";
 import UserBox from "./UserBox";
+import Chats from "./ChatsLayout";
 
 const UserChats = ({ className }) => {
   const [users, setUsers] = useState([]);
@@ -38,7 +39,7 @@ const UserChats = ({ className }) => {
   const handleSearchSubmit = (e) => {};
 
   return (
-    <div className={cn("", className)}>
+    <div className="sticky hidden flex-none space-y-9 h-screen bg-accent px-5 py-5 shadow-sm sm:block lg:w-96">
       <div className="flex justify-between items-center">
         <h1 className="font-bold text-xl text-primary">Chats</h1>
         <MessageCircle className="w-6 h-6 text-muted-foreground" />
@@ -46,7 +47,7 @@ const UserChats = ({ className }) => {
       <div className="relative">
         <form onSubmit={handleSearchSubmit} className="w-full">
           <Input
-            className="pr-12 border bg-card placeholder:text-muted-foreground py-3 rounded-md"
+            className="pr-12 border bg-card placeholder:text-muted-foreground py-5 rounded-md"
             value={searchValue}
             placeholder="Search users..."
             onChange={handleSearch}

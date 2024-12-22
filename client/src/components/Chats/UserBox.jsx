@@ -1,19 +1,23 @@
-import React from "react";
-import UserAvatar from "./UserAvatar";
+import React, { useEffect } from "react";
+import UserAvatar from "../UserAvatar";
 import { useDispatch } from "react-redux";
 import { setSelectedUser } from "@/redux/auth/chatSlice";
 
 const UserBox = ({ user, selectedUser, handleSelectUser }) => {
-  const isSelected = selectedUser === user._id;
-
   const dispatch = useDispatch();
 
-  dispatch(setSelectedUser(user._id));
+  const isSelected = selectedUser && selectedUser._id === user._id;
+
+  useEffect(() => {
+    if (selectedUser) {
+      dispatch(setSelectedUser(selectedUser));
+    }
+  }, [dispatch, selectedUser]);
 
   return (
     <>
       <div
-        onClick={() => handleSelectUser(user._id)}
+        onClick={() => handleSelectUser(user)}
         className={`flex items-center gap-4 rounded-md p-2 hover:bg-card/90 cursor-pointer transition ${
           isSelected ? "bg-card/90" : ""
         }`}

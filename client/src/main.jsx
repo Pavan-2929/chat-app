@@ -9,14 +9,12 @@ import { persistor, store } from "./redux/store";
 import { ThemeProvider } from "./components/ThemeProvider";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <App />
-          <Toaster />
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
-  </StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <App />
+        <Toaster />
+      </ThemeProvider>
+    </PersistGate>
+  </Provider>
 );
