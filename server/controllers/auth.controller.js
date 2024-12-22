@@ -41,3 +41,37 @@ export const register = async (req, res, next) => {
     next(error);
   }
 };
+
+export const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    const validEmail = await User.findOne({ email });
+    if (!validEmail) {
+      return next(errorHandler(404, "User not found"));
+    }
+
+    const validPassword = await validEmail.comparePassword(password);
+    if (!validPassword) {
+      return next(errorHandler(400, "Enter valid password"));
+    }
+
+    const token = await validEmail.generateToken();
+    const expiryTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+    res.cookie("token", token, {
+      expires: expiryTime,
+      sameSite: "None",
+      secure: true,
+    });
+    const userWithOutPassword = await User.findById(validEmail._id).select(
+      "-password"
+    );
+
+    res.status(200).json(userWithOutPassword);
+  } catch (error) {
+    console.log("error in login", error);
+    next(error);
+  }
+};

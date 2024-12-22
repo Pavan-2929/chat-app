@@ -13,7 +13,7 @@ export const registerShcema = z.object({
 });
 
 export const loginSchema = z.object({
-  username: requiredString,
+  email: requiredString,
   password: requiredString,
 });
 

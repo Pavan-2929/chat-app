@@ -1,5 +1,5 @@
-import { registerShcema } from "../lib/validations";
-import { useState, useTransition } from "react";
+import { loginSchema } from "../lib/validations"; // Ensure schema is correct
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -13,20 +13,46 @@ import {
 import { Input } from "../components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "./LoadingButton.jsx";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL } from "@/utils/Constant";
 
 const LoginForm = () => {
-  const [error, setError] = useState();
-  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   const form = useForm({
-    resolver: zodResolver(registerShcema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = async (data) => {
+    console.log("hi");
+    
+    setLoading(true);
+    try {
+      setError(null);
+      const response = await axios.post(`${SERVER_URL}/api/auth/login`, data, {
+        withCredentials: true,
+      });
+      navigate("/");
+      toast({
+        description: "Logged in successfully",
+      });
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      setError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Form {...form}>
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
@@ -58,8 +84,8 @@ const LoginForm = () => {
           )}
         />
         <div className="pt-2">
-          <LoadingButton loading={isPending} type="submit" className="w-full ">
-            Register
+          <LoadingButton loading={loading} type="submit" className="w-full">
+            Login
           </LoadingButton>
         </div>
       </form>
