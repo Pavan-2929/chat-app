@@ -9,7 +9,6 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <div>
         <p>details</p>
         <p>{currentUser && currentUser.username}</p>

@@ -12,13 +12,43 @@ import {
 import UserAvatar from "./UserAvatar";
 import { cn } from "@/lib/utils";
 import { LogOut, UserIcon } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { SERVER_URL } from "@/utils/Constant";
+import { useToast } from "@/hooks/use-toast";
+import { logout, setUser } from "@/redux/auth/authSlice";
 
 const UserButton = (className) => {
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(`${SERVER_URL}/api/auth/logout`, {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        dispatch(logout());
+        dispatch(setUser(null));
+
+        toast({
+          description: "Logout Seccussful",
+        });
+
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        description: "Error while logout",
+        variant: "descrutive",
+      });
+    }
+  };
 
   return (
     <DropdownMenu>

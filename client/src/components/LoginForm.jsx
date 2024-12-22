@@ -31,12 +31,11 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: "",
+      password: "12345678",
     },
   });
 
   const onSubmit = async (data) => {
-
     setLoading(true);
     try {
       setError(null);
