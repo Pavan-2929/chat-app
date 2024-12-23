@@ -8,10 +8,12 @@ import { SERVER_URL } from "@/utils/Constant";
 import { login, setUser } from "@/redux/auth/authSlice";
 import googleImg from "../assets/google.png";
 import { Button } from "./ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const GoogleAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleGoogleClick = async (e) => {
     e.preventDefault();
@@ -35,10 +37,17 @@ const GoogleAuth = () => {
       if (response.status === 200) {
         dispatch(login());
         dispatch(setUser(response.data));
+        toast({
+          description: "Login Successful",
+        });
         navigate("/");
       }
     } catch (error) {
       console.error(error);
+      toast({
+        description: "Error during login",
+        variant: "error",
+      });
     }
   };
 

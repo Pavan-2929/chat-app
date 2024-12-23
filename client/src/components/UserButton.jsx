@@ -18,6 +18,7 @@ import axios from "axios";
 import { SERVER_URL } from "@/utils/Constant";
 import { useToast } from "@/hooks/use-toast";
 import { logout, setUser } from "@/redux/auth/authSlice";
+import { setSelectedUser, setSeletedMessages } from "@/redux/auth/chatSlice";
 
 const UserButton = (className) => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -34,7 +35,8 @@ const UserButton = (className) => {
       if (response.status === 200) {
         dispatch(logout());
         dispatch(setUser(null));
-
+        dispatch(setSelectedUser(null));
+        dispatch(setSeletedMessages(null));
         toast({
           description: "Logout Seccussful",
         });

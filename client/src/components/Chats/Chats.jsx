@@ -53,7 +53,7 @@ const Chats = () => {
         <div className="flex justify-center items-center h-full">
           <div className="animate-spin w-6 h-6 border-4 border-t-4 border-primary rounded-full"></div>
         </div>
-      ) : messages.length > 0 ? (
+      ) : messages && messages.length > 0 ? (
         messages.map((message) => (
           <div
             ref={lastMessageRef}

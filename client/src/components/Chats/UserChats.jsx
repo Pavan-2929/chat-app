@@ -45,7 +45,7 @@ const UserChats = ({ className }) => {
   };
 
   return (
-    <div className="sticky flex-none space-y-9 h-screen bg-accent px-1 sm:px-5 py-1 sm:py-5 shadow-sm lg:w-96">
+    <div className="sticky flex-none space-y-9 h-screen bg-accent px-1 sm:px-5 py-1 sm:py-5 shadow-sm lg:w-96 overflow-y-auto">
       <div className="sm:flex hidden justify-between items-center">
         <h1 className="font-bold text-2xl text-primary">Chats</h1>
         <MessageCircle className="w-6 h-6 text-muted-foreground" />

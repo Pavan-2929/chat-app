@@ -5,12 +5,16 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import ThemeToggler from "../ThemeToggler";
 import { CLOUDINARY_URL, SERVER_URL } from "@/utils/Constant";
-import { setUser } from "@/redux/auth/authSlice";
+import { logout, setUser } from "@/redux/auth/authSlice";
 import { useToast } from "@/hooks/use-toast";
+import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { setSelectedUser, setSeletedMessages } from "@/redux/auth/chatSlice";
 
 const Profile = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   const [uploading, setUploading] = useState(false);
@@ -83,6 +87,28 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      await axios.delete(`${SERVER_URL}/api/user/delete`, {
+        withCredentials: true,
+      });
+      toast({
+        description: "Account deleted successfully",
+      });
+      dispatch(setUser(null));
+      dispatch(logout());
+      dispatch(setSelectedUser(null));
+      dispatch(setSeletedMessages(null));
+      navigate("/login");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      toast({
+        description: "Error deleting account",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="sticky hidden flex-none h-screen bg-accent px-5 py-5 shadow-sm sm:block lg:w-96">
       <div className="flex justify-between items-center w-full">
@@ -114,7 +140,7 @@ const Profile = () => {
         />
       </div>
 
-      <div className="w-full space-y-4 pt-12  pb-5">
+      <div className="w-full space-y-4 pt-12 pb-5">
         <Input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -142,6 +168,16 @@ const Profile = () => {
             : submitting
             ? "Submitting..."
             : "Submit"}
+        </Button>
+      </div>
+
+      <div className="pt-8">
+        <Button
+          variant="destructive"
+          className="w-full"
+          onClick={handleDeleteUser}
+        >
+          <Trash2 className="mr-2" /> Delete your account
         </Button>
       </div>
     </div>

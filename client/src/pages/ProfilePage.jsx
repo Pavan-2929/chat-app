@@ -85,6 +85,28 @@ const ProfilePage = () => {
     }
   };
 
+    const handleDeleteUser = async () => {
+      try {
+        await axios.delete(`${SERVER_URL}/api/user/delete`, {
+          withCredentials: true,
+        });
+        toast({
+          description: "Account deleted successfully",
+        });
+        dispatch(setUser(null));
+        dispatch(logout());
+        dispatch(setSelectedUser(null));
+        dispatch(setSeletedMessages(null));
+        navigate("/login");
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        toast({
+          description: "Error deleting account",
+          variant: "destructive",
+        });
+      }
+    };
+
   return (
     <div className="sticky flex-none h-screen bg-accent sm:px-5 sm:py-5 shadow-sm lg:w-96">
       <div className="sm:flex hidden justify-between items-center w-full">
@@ -147,6 +169,15 @@ const ProfilePage = () => {
             : submitting
             ? "Submitting..."
             : "Submit"}
+        </Button>
+      </div>
+      <div className="pt-8">
+        <Button
+          variant="destructive"
+          className="w-full"
+          onClick={handleDeleteUser}
+        >
+          <Trash2 className="mr-2" /> Delete your account
         </Button>
       </div>
     </div>

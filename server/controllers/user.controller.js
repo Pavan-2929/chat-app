@@ -38,7 +38,7 @@ export const updateProfile = async (req, res, next) => {
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
       new: true,
       runValidators: true,
-      select: "-password", 
+      select: "-password",
     });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
@@ -49,6 +49,20 @@ export const updateProfile = async (req, res, next) => {
       user: updatedUser,
     });
   } catch (error) {
+    next(error);
+  }
+};
+export const deleteUser = async (req, res, next) => {
+  try {
+    const userId = req.id.toString();
+    const user = await User.findByIdAndDelete(userId); 
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    res.clearCookie("token");
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.log("Error in deleting user:", error);
     next(error);
   }
 };

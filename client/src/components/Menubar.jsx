@@ -21,6 +21,7 @@ import axios from "axios";
 import { logout, setUser } from "@/redux/auth/authSlice";
 import { useToast } from "@/hooks/use-toast";
 import ThemeToggler from "./ThemeToggler";
+import { setSelectedUser, setSeletedMessages } from "@/redux/auth/chatSlice";
 
 const Menubar = ({ className, onMenuChange }) => {
   const [selectedButton, setSelectedButton] = useState("chats");
@@ -28,7 +29,6 @@ const Menubar = ({ className, onMenuChange }) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
   const navigate = useNavigate();
-
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
@@ -46,7 +46,8 @@ const Menubar = ({ className, onMenuChange }) => {
       if (response.status === 200) {
         dispatch(logout());
         dispatch(setUser(null));
-
+        dispatch(setSelectedUser(null));
+        dispatch(setSeletedMessages(null));
         toast({
           description: "Logout Seccussful",
         });
@@ -87,7 +88,7 @@ const Menubar = ({ className, onMenuChange }) => {
           <User2Icon size={25} />
         </NavLink>
         <p
-          className={`flex items-center justify-start gap-3 ${
+          className={`flex items-center justify-start gap-3 cursor-pointer ${
             selectedButton === "logout"
               ? "text-primary"
               : "text-muted-foreground"

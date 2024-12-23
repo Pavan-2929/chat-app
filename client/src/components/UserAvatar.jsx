@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 
 const UserAvatar = ({ avatarUrl, className, size, isOnline }) => {
   return (
-    <div className="relative inline-block border p-2 rounded-full min-w-12 max-w-12">
+    <div className="relative inline-block border rounded-full">
       <img
         src={avatarUrl || avatarImage}
         alt="User Image"
-        height={size ?? 48}
-        width={size ?? 48}
+        height={size ?? 44}
+        width={size ?? 44}
         className={cn("rounded-full min-h-full", className)}
       />
       {isOnline && (
