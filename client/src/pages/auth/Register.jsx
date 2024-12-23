@@ -15,11 +15,7 @@ const Register = () => {
         <div></div>
         <div className="w-full space-y-8 overflow-y-auto bg-card px-8 py-6 md:w-1/2">
           <div className="text-center">
-            <p className="text-2xl font-bold">Register to BuzzNet</p>
-            <p className="text-muted-foreground text-sm pt-1">
-              A place where even <span className="italic">you</span> can find a
-              friend.
-            </p>
+            <p className="text-2xl font-bold">Register to Alpha</p>
           </div>
           <div className="space-y-5">
             <RegisterForm />

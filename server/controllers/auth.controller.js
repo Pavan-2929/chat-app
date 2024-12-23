@@ -83,3 +83,71 @@ export const logout = async (req, res, next) => {
     next(error);
   }
 };
+
+const generateUniqueMobileNumber = async () => {
+  let mobileNumber;
+  let isUnique = false;
+
+  while (!isUnique) {
+    mobileNumber =
+      "9" +
+      Math.floor(Math.random() * 1000000000)
+        .toString()
+        .padStart(9, "0");
+    const existingUser = await User.findOne({ mobileNumber });
+    if (!existingUser) {
+      isUnique = true;
+    }
+  }
+
+  return mobileNumber;
+};
+
+export const google = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (user) {
+      const { password, ...rest } = user._doc;
+
+      const token = await user.generateToken();
+      const expiryTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+      res.cookie("token", token, {
+        expires: expiryTime,
+        sameSite: "None",
+        secure: true,
+      });
+
+      res.status(200).json(rest);
+    } else {
+      const generatedPassword = Math.random().toString(36).slice(-8);
+      const mobileNumber = await generateUniqueMobileNumber();
+
+      const newUser = await User.create({
+        username: req.body.username,
+        email: req.body.email,
+        mobileNumber,
+        password: generatedPassword,
+      });
+
+      const token = await newUser.generateToken();
+      const expiryTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+      res.cookie("token", token, {
+        expires: expiryTime,
+        sameSite: "None",
+        secure: true,
+      });
+
+      const userWithOutPassword = await User.findById(newUser._id).select(
+        "-password"
+      );
+
+      res.status(200).json(userWithOutPassword);
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

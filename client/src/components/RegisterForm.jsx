@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, setUser } from "@/redux/auth/authSlice";
+import GoogleAuth from "./GoogleAuth";
 
 const RegisterForm = () => {
   const [error, setError] = useState(null);
@@ -119,10 +120,12 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <div className="pt-2">
+        <div className="pt-2 space-y-2">
           <LoadingButton loading={loading} type="submit" className="w-full">
             Register
           </LoadingButton>
+          <p className="text-center text-muted-foreground">or</p>
+          <GoogleAuth />
         </div>
       </form>
     </Form>
