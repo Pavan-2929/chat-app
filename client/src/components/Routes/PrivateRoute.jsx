@@ -10,7 +10,6 @@ import Navbar from "../Navbar";
 import ProfilePage from "@/pages/ProfilePage";
 const PrivateRoute = () => {
   const location = useLocation();
-  console.log(location);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const selectedUser = useSelector((state) => state.chat.selectedUser);

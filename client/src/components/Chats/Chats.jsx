@@ -22,7 +22,6 @@ const Chats = () => {
       }
     }, 100);
   }, [messages]);
-  console.log(messages);
 
   const renderMessageContent = (message) => {
     switch (message.type) {

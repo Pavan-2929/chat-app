@@ -84,9 +84,6 @@ const ChatInput = () => {
     formData.append("file", file);
     formData.append("upload_preset", "chat-app");
 
-    console.log("Uploading file:", file);
-    console.log("File type:", file.type);
-
     setUploadStatus({ loading: true, type });
     try {
       let uploadUrl = `${CLOUDINARY_URL}`;
@@ -96,7 +93,6 @@ const ChatInput = () => {
       }
 
       const response = await axios.post(uploadUrl, formData);
-      console.log(response);
 
       const mediaUrl = response.data.secure_url;
       await handleSendMessage(mediaUrl, type);
