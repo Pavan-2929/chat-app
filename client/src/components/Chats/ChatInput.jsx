@@ -7,7 +7,6 @@ const ChatInput = () => {
   const [message, setMessage] = useState("");
   const { sendMessage, loading, error } = useSendMessage();
   const selectedUser = useSelector((state) => state.chat.selectedUser);
-  console.log(selectedUser);
 
   const handleInputChange = (e) => {
     setMessage(e.target.value);

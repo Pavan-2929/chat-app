@@ -7,7 +7,8 @@ import useSendMessage from "@/hooks/useSendMessages";
 
 const Chats = () => {
   const selectedUser = useSelector((state) => state.chat.selectedUser);
-  const { messages, loading } = useFetchMessages(selectedUser?._id);
+  const { loading } = useFetchMessages(selectedUser?._id);
+  const messages = useSelector((state) => state.chat.messages);
 
   return (
     <div className="flex flex-col h-full p-4 bg-card overflow-y-auto">

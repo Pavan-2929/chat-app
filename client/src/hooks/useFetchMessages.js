@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SERVER_URL } from "../utils/Constant";
+import { setSeletedMessages } from "@/redux/auth/chatSlice";
+import { useDispatch } from "react-redux";
 
 const useFetchMessages = (selectedUserId) => {
-  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const fetchMessages = async () => {
     if (!selectedUserId) return;
@@ -14,7 +16,7 @@ const useFetchMessages = (selectedUserId) => {
         `${SERVER_URL}/api/message/get/${selectedUserId}`,
         { withCredentials: true }
       );
-      setMessages(response.data || []);
+      dispatch(setSeletedMessages(response.data || []));
     } catch (error) {
       console.error("Error fetching messages:", error);
     } finally {
@@ -26,7 +28,7 @@ const useFetchMessages = (selectedUserId) => {
     fetchMessages();
   }, [selectedUserId]);
 
-  return { messages, loading };
+  return { loading };
 };
 
 export default useFetchMessages;
