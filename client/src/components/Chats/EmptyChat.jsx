@@ -1,10 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import Navbar from "../Navbar";
 
 const EmptyChat = () => {
   return (
-    <div className="w-full h-screen bg-background flex flex-col items-center justify-center text-center p-6">
+    <div style={{zIndex: 10}} className="w-full h-screen bg-background flex flex-col items-center sm:justify-center text-center  sm:p-6 ">
+      <div className="sm:hidden inline-block mb-32">
+        <Navbar />
+      </div>
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -27,7 +31,7 @@ const EmptyChat = () => {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.4 }}
-        className="mt-4 text-lg text-muted-foreground"
+        className="mt-4 text-lg text-muted-foreground px-6 sm:px-0"
       >
         Select a user to start chatting and share your thoughts instantly.
       </motion.p>
@@ -36,7 +40,7 @@ const EmptyChat = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 2 }}
-        className="mt-10"
+        className="mt-10 hidden sm:inline"
       >
         <motion.div
           className="relative flex justify-center items-center w-64 h-64"
@@ -69,7 +73,7 @@ const EmptyChat = () => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.6 }}
-        className="mt-8"
+        className="mt-8 sm:inline hidden"
       >
         <button
           className="px-6 py-3 bg-primary text-primary-foreground font-semibold text-lg rounded-lg shadow-lg hover:bg-primary/80 transition-transform transform hover:scale-105"

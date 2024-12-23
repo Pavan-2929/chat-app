@@ -98,15 +98,18 @@ const Menubar = ({ className, onMenuChange }) => {
         <div className="sm:hidden">
           <ThemeToggler />
         </div>
-        <NavLink to="/profile" className="sm:hidden flex">
-          <UserAvatar avatarUrl={currentUser.avatarUrl} size={26} />
-        </NavLink>
       </div>
       <div className="hidden sm:flex sm:flex-col flex-row justify-between gap-x-5 items-center gap-y-7">
-        <ThemeToggler />
-        <NavLink to="/profile">
+        <div>
+          <ThemeToggler />
+        </div>
+        <div
+          to="/profile"
+          onClick={() => handleButtonClick("profile")}
+          className="cursor-pointer"
+        >
           <UserAvatar avatarUrl={currentUser.avatarUrl} size={30} />
-        </NavLink>
+        </div>
       </div>
     </div>
   );

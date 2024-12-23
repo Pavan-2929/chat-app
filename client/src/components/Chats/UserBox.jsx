@@ -27,7 +27,7 @@ const UserBox = ({ user, selectedUser, handleSelectUser }) => {
         }`}
       >
         <UserAvatar avatarUrl={user.avatarUrl} size={52} isOnline={isOnline} />{" "}
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-col items-start">
           <span className="font-medium text-lg">{user.username}</span>
           <span className="text-sm text-muted-foreground line-clamp-1">
             {isOnline ? "Online" : `${user.about}`}

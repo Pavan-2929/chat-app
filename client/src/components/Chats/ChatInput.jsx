@@ -28,8 +28,8 @@ const ChatInput = () => {
     type: null,
   });
   const emojiPickerRef = useRef(null);
-  const imageInputRef = useRef(null); // Create ref for image input
-  const videoInputRef = useRef(null); // Create ref for video input
+  const imageInputRef = useRef(null);
+  const videoInputRef = useRef(null);
   const { theme } = useTheme();
   const { sendMessage, loading: sendingMessage } = useSendMessage();
   const selectedUser = useSelector((state) => state.chat.selectedUser);
@@ -123,16 +123,16 @@ const ChatInput = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-3 px-4 py-4 border-t border-muted-foreground relative">
+    <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 sm:py-4 border-t border-muted-foreground relative">
       <label htmlFor="image-upload">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <div
-                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
+                className="sm:p-2 p-1 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
                 onClick={() => imageInputRef.current.click()}
               >
-                <ImageIcon className="size-5 text-primary" />
+                <ImageIcon className="sm:size-5 size-4 text-primary" />
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -155,10 +155,10 @@ const ChatInput = () => {
           <Tooltip>
             <TooltipTrigger>
               <div
-                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
-                onClick={() => videoInputRef.current.click()} // Trigger file input on click
+                className="sm:p-2 p-1 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
+                onClick={() => videoInputRef.current.click()}
               >
-                <VideoIcon className="size-5 text-primary" />
+                <VideoIcon className="sm:size-5 size-4 text-primary" />
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -178,11 +178,11 @@ const ChatInput = () => {
       <div className="relative" ref={emojiPickerRef}>
         <button
           type="button"
-          className="p-2 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
+          className="sm:p-2 p-1 rounded-full bg-muted hover:bg-muted/80 transition flex items-center justify-center"
           title="Stickers/Emojis"
           onClick={toggleEmojiPicker}
         >
-          <Smile className="text-primary size-5" />
+          <Smile className="text-primary sm:size-5 size-4" />
         </button>
         {isEmojiPickerOpen && (
           <div className="absolute bottom-full mb-2 left-0 bg-card border border-muted-foreground rounded-lg shadow-md z-10">
@@ -195,7 +195,7 @@ const ChatInput = () => {
       </div>
 
       <Input
-        className="flex-1 py-2 px-4 rounded-lg bg-card border border-muted-foreground placeholder:text-muted-foreground text-primary"
+        className="flex-1    sm:py-2 px-4 rounded-lg bg-card border border-muted-foreground placeholder:text-muted-foreground text-primary"
         placeholder="Type a message..."
         value={message}
         onChange={handleInputChange}
@@ -204,15 +204,15 @@ const ChatInput = () => {
 
       <button
         type="button"
-        className="p-2 rounded-full bg-primary hover:bg-primary/80 transition"
+        className="sm:p-2 p-1 rounded-full bg-primary hover:bg-primary/80 transition"
         onClick={() => handleSendMessage(message)}
         title="Send Message"
         disabled={sendingMessage || uploadStatus.loading}
       >
         {sendingMessage || uploadStatus.loading ? (
-          <Loader2 className="animate-spin w-5 h-5 text-foreground" />
+          <Loader2 className="animate-spin size-4 sm:size-5 text-foreground" />
         ) : (
-          <SendIcon className="w-5 h-5 text-foreground" />
+          <SendIcon className="size-4 sm:size-5 text-foreground" />
         )}
       </button>
     </div>

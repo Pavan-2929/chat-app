@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import Sidebar from "../Sidebar";
 
 
 const ChatHeader = () => {
@@ -23,6 +24,9 @@ const ChatHeader = () => {
   return (
     <div className="flex items-center justify-between py-3 px-5 border-b border-muted-foreground/50">
       <div className="flex items-center gap-4">
+        <div className="sm:hidden inline">
+          <Sidebar />
+        </div>
         <UserAvatar
           avatarUrl={selectedUser.avatarUrl}
           size={52}
@@ -30,7 +34,7 @@ const ChatHeader = () => {
         />
         <div>
           <p className="text-lg font-semibold">{selectedUser.username}</p>
-          <p className="text-sm text-muted-foreground line-clamp-1">
+          <p className="text-sm text-muted-foreground line-clamp-1 sm:inline-block hidden">
             {isOnline ? "Online" : `${selectedUser.about}`}
           </p>
         </div>
