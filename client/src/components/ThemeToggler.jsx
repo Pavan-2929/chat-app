@@ -6,7 +6,7 @@ const ThemeToggler = () => {
   const { theme, setTheme } = useTheme();
   return (
     <div
-      className="text-xl mr-6 bg-accent px-4 py-2 cursor-pointer rounded-md transition-colors duration-200 text-muted-foreground hover:text-secondary-foreground hover:bg-secondary"
+      className="text-xl bg-accent px-4 py-2 cursor-pointer rounded-md transition-colors duration-200 text-muted-foreground hover:text-secondary-foreground hover:bg-secondary"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       {theme === "dark" ? (

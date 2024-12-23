@@ -33,7 +33,7 @@ const Chats = () => {
               }`}
             >
               <p className="text-[15px]">{message.message}</p>
-              <p className="text-xs text-muted text-end mt-1">
+              <p className="text-xs text-foreground/60 text-end mt-1">
                 {new Date(message.createdAt).toLocaleTimeString()}
               </p>
             </div>

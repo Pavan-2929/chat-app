@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
 import Chats from "./Chats";
+import { useSearchParams } from "react-router-dom";
 
 const ChatsLayout = () => {
 
