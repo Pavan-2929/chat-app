@@ -2,11 +2,16 @@ import React, { useEffect } from "react";
 import UserAvatar from "../UserAvatar";
 import { useDispatch } from "react-redux";
 import { setSelectedUser } from "@/redux/auth/chatSlice";
+import { useSocketContext } from "@/context/SocketContext";
 
 const UserBox = ({ user, selectedUser, handleSelectUser }) => {
   const dispatch = useDispatch();
+  const { socket, onlineUsers } = useSocketContext();
+
+  const isOnline = onlineUsers.includes(user._id);
 
   const isSelected = selectedUser && selectedUser._id === user._id;
+  console.log(onlineUsers, isOnline);
 
   useEffect(() => {
     if (selectedUser) {
@@ -25,12 +30,8 @@ const UserBox = ({ user, selectedUser, handleSelectUser }) => {
         <UserAvatar avatarUrl={user.avatarUrl} />
         <div className="flex flex-col flex-grow">
           <span className="font-medium text-lg">{user.username}</span>
-          <span className="text-sm text-muted-foreground">
-            {user.status === "online"
-              ? "Online"
-              : user.lastSeen
-              ? `Last seen: ${new Date(user.lastSeen).toLocaleString()}`
-              : `About: ${user.about}`}
+          <span className="text-sm text-muted-foreground line-clamp-1">
+            {isOnline ? "Online" : `${user.about}`}
           </span>
         </div>
       </div>

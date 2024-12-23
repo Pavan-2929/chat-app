@@ -2,13 +2,14 @@ import React from "react";
 import UserAvatar from "../UserAvatar";
 import { Eye } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useSocketContext } from "@/context/SocketContext";
 
 const ChatHeader = () => {
   const selectedUser = useSelector((state) => state.chat.selectedUser);
 
-  const lastSeenTime = selectedUser.lastSeen
-    ? new Date(selectedUser.lastSeen).toLocaleString()
-    : null;
+  const { onlineUsers } = useSocketContext();
+
+  const isOnline = onlineUsers.includes(selectedUser._id);
 
   return (
     <div className="flex items-center justify-between py-3 px-5 border-b border-muted-foreground/50">
@@ -16,12 +17,8 @@ const ChatHeader = () => {
         <UserAvatar avatarUrl={selectedUser.avatarUrl} size={52} />
         <div>
           <p className="text-lg font-semibold">{selectedUser.username}</p>
-          <p className="text-sm text-muted-foreground">
-            {selectedUser.status === "online"
-              ? "Active now"
-              : lastSeenTime
-              ? `Last seen: ${lastSeenTime}`
-              : `About: ${selectedUser.about}`}
+          <p className="text-sm text-muted-foreground line-clamp-1">
+            {isOnline ? "Online" : `${selectedUser.about}`}
           </p>
         </div>
       </div>

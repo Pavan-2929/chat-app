@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import useFetchMessages from "@/hooks/useFetchMessages";
 import useSendMessage from "@/hooks/useSendMessages";
+import useGetSocketMessage from "@/context/useGetSocketMessage";
 
 const Chats = () => {
   const selectedUser = useSelector((state) => state.chat.selectedUser);
   const { loading } = useFetchMessages(selectedUser?._id);
   const messages = useSelector((state) => state.chat.messages);
+  useGetSocketMessage();
+  const lastMessageRef = useRef();
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (lastMessageRef.current) {
+        lastMessageRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    }, 100);
+  }, [messages]);
   return (
     <div className="flex flex-col h-full p-4 bg-card overflow-y-auto">
       {loading ? (
@@ -19,6 +31,7 @@ const Chats = () => {
       ) : messages.length > 0 ? (
         messages.map((message) => (
           <div
+            ref={lastMessageRef}
             key={message._id}
             className={`flex ${
               message.senderId === selectedUser._id

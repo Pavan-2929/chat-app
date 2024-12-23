@@ -26,15 +26,6 @@ const userSchema = new mongoose.Schema({
     default:
       "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg",
   },
-  status: {
-    type: String,
-    default: "offline",
-    enum: ["online", "offline"],
-  },
-  lastSeen: {
-    type: Date,
-    default: null,
-  },
   about: {
     type: String,
     default: "Hey there! I am using this app.",

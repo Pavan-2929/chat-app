@@ -6,10 +6,10 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import messageRouter from "./routes/message.routes.js";
+import { app, server } from "./Socket/server.js";
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -27,7 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRouter);
 app.use("/api/message", messageRouter);
 
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`PORT is running at ${PORT}`);
 });
 
