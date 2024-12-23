@@ -11,7 +11,6 @@ const UserBox = ({ user, selectedUser, handleSelectUser }) => {
   const isOnline = onlineUsers.includes(user._id);
 
   const isSelected = selectedUser && selectedUser._id === user._id;
-  console.log(onlineUsers, isOnline);
 
   useEffect(() => {
     if (selectedUser) {
@@ -27,7 +26,7 @@ const UserBox = ({ user, selectedUser, handleSelectUser }) => {
           isSelected ? "bg-card/90" : ""
         }`}
       >
-        <UserAvatar avatarUrl={user.avatarUrl} />
+        <UserAvatar avatarUrl={user.avatarUrl} size={52} isOnline={isOnline} />{" "}
         <div className="flex flex-col flex-grow">
           <span className="font-medium text-lg">{user.username}</span>
           <span className="text-sm text-muted-foreground line-clamp-1">

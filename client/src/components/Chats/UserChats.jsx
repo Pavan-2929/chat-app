@@ -9,7 +9,8 @@ import UserBox from "./UserBox";
 import Chats from "./ChatsLayout";
 
 const UserChats = ({ className }) => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]); 77
+  const [filteredUsers, setFilteredUsers] = useState([]); 7
   const [searchValue, setSearchValue] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -22,7 +23,13 @@ const UserChats = ({ className }) => {
   }, []);
 
   const handleSearch = (e) => {
-    setSearchValue(e.target.value);
+    const value = e.target.value;
+    setSearchValue(value);
+
+    const filtered = users.filter((user) =>
+      user.username.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredUsers(filtered);
   };
 
   const getAllUsers = async () => {
@@ -31,21 +38,20 @@ const UserChats = ({ className }) => {
         withCredentials: true,
       });
       setUsers(response.data);
+      setFilteredUsers(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSearchSubmit = (e) => {};
-
   return (
     <div className="sticky hidden flex-none space-y-9 h-screen bg-accent px-5 py-5 shadow-sm sm:block lg:w-96">
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-xl text-primary">Chats</h1>
+        <h1 className="font-bold text-2xl text-primary">Chats</h1>
         <MessageCircle className="w-6 h-6 text-muted-foreground" />
       </div>
       <div className="relative">
-        <form onSubmit={handleSearchSubmit} className="w-full">
+        <form onSubmit={(e) => e.preventDefault()} className="w-full">
           <Input
             className="pr-12 border bg-card placeholder:text-muted-foreground py-5 rounded-md"
             value={searchValue}
@@ -56,8 +62,8 @@ const UserChats = ({ className }) => {
         </form>
       </div>
       <div className="space-y-4">
-        {users.length > 0 ? (
-          users.map((user) => (
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
             <UserBox
               key={user._id}
               user={user}

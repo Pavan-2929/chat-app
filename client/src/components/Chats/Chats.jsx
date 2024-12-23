@@ -22,6 +22,31 @@ const Chats = () => {
       }
     }, 100);
   }, [messages]);
+  console.log(messages);
+
+  const renderMessageContent = (message) => {
+    switch (message.type) {
+      case "text":
+        return <p className="text-[15px]">{message.content}</p>;
+      case "image":
+        return (
+          <img
+            src={message.content}
+            alt="Uploaded"
+            className="max-w-full h-auto"
+          />
+        );
+      case "video":
+        return (
+          <video controls className="max-w-full h-auto">
+            <source src={message.content} />
+          </video>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col h-full p-4 bg-card overflow-y-auto">
       {loading ? (
@@ -46,7 +71,7 @@ const Chats = () => {
                   : "bg-primary text-card"
               }`}
             >
-              <p className="text-[15px]">{message.message}</p>
+              {renderMessageContent(message)}
               <p className="text-xs text-foreground/60 text-end mt-1">
                 {new Date(message.createdAt).toLocaleTimeString()}
               </p>

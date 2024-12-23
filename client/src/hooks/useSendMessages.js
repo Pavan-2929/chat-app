@@ -10,13 +10,13 @@ const useSendMessage = () => {
   const messages = useSelector((state) => state.chat.messages);
   const dispatch = useDispatch();
 
-  const sendMessage = async ({ message, receiverId }) => {
+  const sendMessage = async ({ type, content, receiverId }) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.post(
         `${SERVER_URL}/api/message/send/${receiverId}`,
-        { message },
+        { type, content },
         { withCredentials: true }
       );
       dispatch(setSeletedMessages([...messages, response.data]));

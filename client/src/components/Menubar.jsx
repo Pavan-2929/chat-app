@@ -20,6 +20,7 @@ import { SERVER_URL } from "@/utils/Constant";
 import axios from "axios";
 import { logout, setUser } from "@/redux/auth/authSlice";
 import { useToast } from "@/hooks/use-toast";
+import ThemeToggler from "./ThemeToggler";
 
 const Menubar = ({ className, onMenuChange }) => {
   const [selectedButton, setSelectedButton] = useState("chats");
@@ -94,35 +95,15 @@ const Menubar = ({ className, onMenuChange }) => {
         >
           <LogOut size={25} />
         </p>
-        <NavLink
-          to="/settings"
-          className={`flex items-center justify-start gap-3 sm:hidden ${
-            selectedButton === "settings"
-              ? "text-primary"
-              : "text-muted-foreground"
-          } hover:text-primary/70 transition-all`}
-          onClick={() => {
-            handleButtonClick("settings");
-          }}
-        >
-          <Settings size={25} />
-        </NavLink>
+        <div className="sm:hidden">
+          <ThemeToggler />
+        </div>
         <NavLink to="/profile" className="sm:hidden flex">
           <UserAvatar avatarUrl={currentUser.avatarUrl} size={26} />
         </NavLink>
       </div>
       <div className="hidden sm:flex sm:flex-col flex-row justify-between gap-x-5 items-center gap-y-7">
-        <NavLink
-          to="/settings"
-          className={`flex items-center justify-start gap-3 ${
-            selectedButton === "settings"
-              ? "text-primary"
-              : "text-muted-foreground"
-          } hover:text-primary/70 transition-all`}
-          onClick={() => handleButtonClick("settings")}
-        >
-          <Settings size={25} />
-        </NavLink>
+        <ThemeToggler />
         <NavLink to="/profile">
           <UserAvatar avatarUrl={currentUser.avatarUrl} size={30} />
         </NavLink>

@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.emoji-picker-react {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--muted-foreground);
+  border-radius: 8px;
+}
+.emoji-picker-react .emoji-group {
+  padding: 8px;
+}
