@@ -64,7 +64,7 @@ const UserButton = (className) => {
           Logged In as @{currentUser.username}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <NavLink to={`/user/${currentUser.username}`}>
+        <NavLink to={`/profile`}>
           <DropdownMenuItem>
             <UserIcon className="mr-2 size-4" />
             Profile

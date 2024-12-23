@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Sidebar from "../Sidebar";
-
+import UserButton from "../UserButton";
 
 const ChatHeader = () => {
   const selectedUser = useSelector((state) => state.chat.selectedUser);
@@ -27,11 +27,16 @@ const ChatHeader = () => {
         <div className="sm:hidden inline">
           <Sidebar />
         </div>
-        <UserAvatar
-          avatarUrl={selectedUser.avatarUrl}
-          size={52}
-          isOnline={isOnline}
-        />
+        <div className="sm:block hidden">
+          <UserAvatar
+            avatarUrl={selectedUser.avatarUrl}
+            size={52}
+            isOnline={isOnline}
+          />
+        </div>
+        <div className="sm:hidden block pt-1">
+          <UserButton />
+        </div>
         <div>
           <p className="text-lg font-semibold">{selectedUser.username}</p>
           <p className="text-sm text-muted-foreground line-clamp-1 sm:inline-block hidden">
@@ -55,7 +60,7 @@ const ChatHeader = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center gap-4 mt-4">
-            <div className=""> 
+            <div className="">
               <UserAvatar avatarUrl={selectedUser.avatarUrl} size={200} />
             </div>
             <div className="text-center">

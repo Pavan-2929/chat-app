@@ -34,7 +34,7 @@ const RegisterForm = () => {
       username: "",
       email: "",
       mobileNumber: "",
-      password: "12345678",
+      password: "",
     },
   });
 

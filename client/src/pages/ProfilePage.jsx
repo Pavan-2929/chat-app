@@ -9,6 +9,7 @@ import { setUser } from "@/redux/auth/authSlice";
 import { useToast } from "@/hooks/use-toast";
 import ChatHeader from "@/components/Chats/ChatHeader";
 import Navbar from "@/components/Navbar";
+import { Trash2 } from "lucide-react";
 
 const ProfilePage = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -171,7 +172,7 @@ const ProfilePage = () => {
             : "Submit"}
         </Button>
       </div>
-      <div className="pt-8">
+      <div className="pt-12 px-12 sm:px-0">
         <Button
           variant="destructive"
           className="w-full"

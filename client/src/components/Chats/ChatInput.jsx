@@ -195,7 +195,7 @@ const ChatInput = () => {
       </div>
 
       <Input
-        className="flex-1    sm:py-2 px-4 rounded-lg bg-card border border-muted-foreground placeholder:text-muted-foreground text-primary"
+        className="flex-1    sm:py-2 px-4 rounded-lg bg-card border border-muted-foreground placeholder:text-muted-foreground text-foreground"
         placeholder="Type a message..."
         value={message}
         onChange={handleInputChange}
